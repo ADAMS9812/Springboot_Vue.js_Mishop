@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ysw.dao.PayDao">
+
+    <!-- 根据订单id查询mso中该订单的付款状态 -->
+    <select id="getPayState" parameterType="String" resultType="String">
+        select paystate from mso where msoid = #{msoid}
+    </select>
+
+    <!-- 根据订单号msoid查询msoxq中的集合 -->
+    <select id="payMoney" parameterType="String" resultType="com.ysw.entity.Msoxq">
+        select * from msoxq where msoid = #{msoid}
+    </select>
+
+</mapper>

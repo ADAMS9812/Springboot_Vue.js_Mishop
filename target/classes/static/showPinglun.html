@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="order by dede58.com"/>
+    <title>小米商城 - 查看评论</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="editor.md-master/css/editormd.css" />
+    <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
+
+    <script src="editor.md-master/examples/js/jquery.min.js"></script>
+    <script src="editor.md-master/editormd.min.js"></script>
+    <script src="editor.md-master/lib/marked.min.js"></script>
+    <script src="editor.md-master/lib/prettify.min.js"></script>
+    <script src="editor.md-master/lib/raphael.min.js"></script>
+    <script src="editor.md-master/lib/underscore.min.js"></script>
+    <script src="editor.md-master/lib/sequence-diagram.min.js"></script>
+    <script src="editor.md-master/lib/flowchart.min.js"></script>
+    <script src="editor.md-master/lib/jquery.flowchart.min.js"></script>
+
+    <script src="editor.md-master/editormd.js"></script>
+
+    <style>
+
+        #showpinglun th{
+            background: #ff6700;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="app">
+
+    <!-- start header -->
+    <header>
+        <div class="top center">
+            <div class="left fl">
+                <ul>
+                    <li><a href="index.html" target="_blank">小米商城</a></li>
+                    <li>|</li>
+                    <li><a href="">MIUI</a></li>
+                    <li>|</li>
+                    <li><a href="">米聊</a></li>
+                    <li>|</li>
+                    <li><a href="">游戏</a></li>
+                    <li>|</li>
+                    <li><a href="">多看阅读</a></li>
+                    <li>|</li>
+                    <li><a href="">云服务</a></li>
+                    <li>|</li>
+                    <li><a href="">金融</a></li>
+                    <li>|</li>
+                    <li><a href="">小米商城移动版</a></li>
+                    <li>|</li>
+                    <li><a href="">问题反馈</a></li>
+                    <li>|</li>
+                    <li><a href="">Select Region</a></li>
+                    <div class="clear"></div>
+                </ul>
+            </div>
+            <div class="right fr">
+                <div class="gouwuche fr"><a href="order.html">我的订单</a></div>
+                <div class="fr">
+                    <ul>
+                        <li v-if="user.id!=null">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <a>欢迎您，<span>{{user.name}}</span></a>
+                                    </td>
+                                    <td>
+                                        <a @click="loginOut" style="cursor:pointer;color: red;">[退出]</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </li>
+                        <li v-if="user.id==null||user.id==''"><a href="login.html" target="_blank">登录</a></li>
+                        <li v-if="user.id==null||user.id==''">|</li>
+                        <li v-if="user.id==null||user.id==''"><a href="register.html" target="_blank" >注册</a></li>
+                        <li>|</li>
+                        <li><a href="self_info.html">个人中心</a></li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </header>
+    <!--end header -->
+
+    <!-- start banner_x -->
+    <!--<hr>-->
+    <!-- 评论内容 -->
+    <center v-if="pinglunList != null">
+        <table id="showpinglun" border="1px" cellpadding="0" cellspacing="0"
+               class="table table-hover" style="width: 70%;text-align: center;margin-top: 15px;">
+            <caption style="text-align: center;font-weight: bolder;font-size: 30px">用户评论</caption>
+            <thead>
+                <tr>
+                    <th style="text-align: center">评论id</th>
+                    <th style="text-align: center">评论标题</th>
+                    <th style="text-align: center">产品id</th>
+                    <th style="text-align: center">用户姓名</th>
+                    <th style="text-align: center">评论时间</th>
+                    <th style="text-align: center">查看详情</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr v-for="(comment,index) in pinglunList" class="active">
+                    <td>{{comment.fid}}</td>
+                    <td>{{comment.titles}}</td>
+                    <td>{{comment.proid}}</td>
+                    <td>{{comment.username}}</td>
+                    <td>{{comment.time}}</td>
+                    <td>
+                        <a data-toggle="modal" data-target="#myModal" style="cursor: pointer" onclick="showCommentDetail(this)">
+                            评论详情
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </center>
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        评论详情
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <!-- 展示评论 -->
+                    <div id="articles_all"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+</div>
+<!-- end banner_x -->
+
+<footer class="mt20 center">
+    <div class="mt20">小米商城|MIUI|米聊|多看书城|小米路由器|视频电话|小米天猫店|小米淘宝直营店|小米网盟|小米移动|隐私政策|Select Region</div>
+    <div>©mi.com 京ICP证110507号 京ICP备10046444号 京公网安备11010802020134号 京网文[2014]0059-0009号</div>
+    <div>违法和不良信息举报电话：185-0130-1238，本网站所列数据，除特殊说明，所有数据均出自我司实验室测试</div>
+</footer>
+
+<script src="js/vuejs-2.5.16.js"></script>
+<script src="js/axios-0.18.0.js"></script>
+<script src="js/pinglun.js"></script>
+<script>
+    //展示评论内容
+    function showCommentDetail(dom){
+        //获取当前id
+        var id = dom.parentNode.parentNode.childNodes[0].innerHTML;
+
+        $.ajax({
+            url: "comment/getCommentFid/" + id,
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+
+                var articles_all = "";
+
+                //帖子内容
+                var listArticle_fcontent = "";
+                listArticle_fcontent = data.fcontent;
+
+                articles_all = articles_all +
+                    '<div class="row">' +
+                    '   <div class="col-md-12">' +
+                    '       <div id="artice-doc-content">' +
+                    '           <!-- 帖子内容 -->' +
+                    '           <textarea style="display:none;">'+listArticle_fcontent+'</textarea>' +
+                    '       </div>' +
+                    '   </div>' +
+                    '</div>'
+
+                $("#articles_all").html(articles_all);
+
+                /*把MD语法文档，转换为HTML语法 - js*/
+                var testEditor;
+                $(function () {
+                    testEditor = editormd.markdownToHTML("artice-doc-content", {//注意：这里是上面DIV的id
+                        htmlDecode: "style,script,iframe",
+                        emoji: true,
+                        taskList: true,
+                        tex: true, // 默认不解析
+                        flowChart: true, // 默认不解析
+                        sequenceDiagram: true, // 默认不解析
+                        codeFold: true,
+                    });
+                });
+
+            }
+
+        });
+    }
+</script>
+
+
+</body>
+</html>

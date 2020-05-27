@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="UTF-8">
+        <meta name="author" content="order by dede58.com"/>
+		<title>我的购物车-小米商城</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+	</head>
+	<body>
+	<!-- start header -->
+	<!--end header -->
+
+	<div id="app">
+
+		<!-- start banner_x -->
+		<div class="banner_x center">
+			<a href="index.html" target="_blank"><div class="logo fl"></div></a>
+
+			<div class="wdgwc fl ml40">我的购物车</div>
+			<div class="wxts fl ml20">温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算</div>
+			<div class="dlzc fr">
+				<ul>
+					<li v-if="user.id!=null">
+						<table>
+							<tr>
+								<td>
+									<a>欢迎您，<span>{{user.name}}</span></a>
+								</td>
+								<td>
+									<a @click="loginOut" style="cursor:pointer;color: red;">[退出]</a>
+								</td>
+							</tr>
+						</table>
+					</li>
+					<li v-if="user.id==null||user.id==''"><a href="login.html" target="_blank">登录</a></li>
+					<li v-if="user.id==null||user.id==''">|</li>
+					<li v-if="user.id==null||user.id==''"><a href="register.html" target="_blank" >注册</a></li>
+					<li>|</li>
+					<li><a href="self_info.html">个人中心</a></li>
+				</ul>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="xiantiao"></div>
+		<div class="gwcxqbj">
+			<div class="gwcxd center">
+				<div class="top2 center">
+					<div class="sub_top fl">
+						商品编号
+					</div>
+					<div class="sub_top fl">商品名称</div>
+					<div class="sub_top fl">单价</div>
+					<div class="sub_top fl">数量</div>
+					<div class="sub_top fl">小计</div>
+					<div class="sub_top fr">操作</div>
+					<div class="clear"></div>
+				</div>
+
+				<div class="content2 center" v-for="(pro,index) in proList">
+					<div class="sub_content fl">
+						{{index + 1}}
+					</div>
+					<span style="display: none" name="pro_ids" id="pro_ids">{{pro.id}}</span>
+					<div class="sub_content fl"><img style="width: 60px;height: 60px" v-bind:src="pro.pImg"></div>
+					<div class="sub_content fl ft20">{{pro.pName}}</div>
+					<div class="sub_content fl">{{pro.iPrice}}元</div>
+					<div class="sub_content fl">
+						<!-- 这里要记得可以更新产品，这里如果操作过快会出bug，所以先设置readonly -->
+						<input class="shuliang" id="shuliang" type="number" min="1" step="1" @change="getCount(pro.id,pro.currentCount)" v-model="pro.currentCount"/>
+					</div>
+					<div class="sub_content fl"><span name="proTotalPrice" id="proTotalPrice">{{pro.iPrice*pro.currentCount}}</span></div>
+					<!--<button onclick="getTotalMoney()" >展示</button>-->
+					<div class="sub_content fl"><a style="cursor: pointer" @click="deleteProById(pro.id)">×</a></div>
+					<div class="clear"></div>
+				</div>
+
+			</div>
+
+			<div class="jiesuandan mt20 center">
+				<div class="tishi fl ml20">
+					<ul>
+						<li><a style="cursor: pointer;" @click="clearAll">清空购物车</a></li>
+						<li>|</li>
+						<li>共<span>{{pro.totalCount}}</span>件商品</li>
+						<div class="clear"></div>
+					</ul>
+				</div>
+				<div class="jiesuan fr">
+					<div class="jiesuanjiage fl">合计（不含运费）：<span>{{totalMoney}}</span>元</div>
+					<div class="jsanniu fr"><input class="jsan" type="button" @click="addToOrder" name="jiesuan" value="去结算"/></div>
+					<div class="clear"></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+
+		</div>
+	</div>
+
+	<script src="js/vuejs-2.5.16.js"></script>
+	<script src="js/axios-0.18.0.js"></script>
+	<script src="js/gouwuche.js"></script>
+	</body>
+</html>

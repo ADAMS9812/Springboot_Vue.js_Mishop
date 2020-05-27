@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ysw.dao.OrderDao">
+
+    <!-- 查询所有的订单mso -->
+    <select id="findAll" resultType="com.ysw.entity.Mso">
+        select * from mso
+    </select>
+
+    <!-- 返回订单总数 -->
+    <select id="getTotalCount" resultType="Integer">
+        select count(*) from mso
+    </select>
+
+    <!-- 根据用户id查询订单详情,返回的是一个集合 -->
+    <select id="getMsoByUserid" resultType="com.ysw.entity.Mso" parameterType="Integer">
+        select * from mso where userid = #{userid}
+    </select>
+
+    <!-- 根据订单号查询我们的订单详情集合 -->
+    <select id="getMsoxqByMsoid" parameterType="String" resultType="com.ysw.entity.Msoxq">
+        select * from msoxq where msoid = #{msoid}
+    </select>
+
+    <!-- 根据msoid查询msoxq总数 -->
+    <select id="getMsoxqCountByMsoid" parameterType="String" resultType="Integer">
+        select count(*) from msoxq where msoid = #{msoid}
+    </select>
+
+    <!-- 根据用户id查询mso订单总数 -->
+    <select id="getMsoCountByUserid" parameterType="Integer" resultType="Integer">
+        select count(*) from mso where userid = #{userid}
+    </select>
+
+    <!-- 插入订单表mso -->
+    <insert id="addToMso" parameterType="com.ysw.entity.Mso">
+        insert into mso values(null, #{msoid}, #{msoname},
+        #{telephone}, #{msoTime}, #{paystate}, #{subtotal}, #{address}, #{userid}, #{deliveryState})
+    </insert>
+
+    <!-- 插入订单详情表msoxq -->
+    <insert id="addToMsoXq" parameterType="com.ysw.entity.Msoxq">
+        insert into msoxq values(null, #{msoid}, #{count}, #{proid}, #{subtotal},
+        #{pImg}, #{pSn})
+    </insert>
+
+    <!-- 用户支付 - 更改产品的支付状态 -->
+    <update id="payMoney" parameterType="com.ysw.entity.Mso">
+        update mso set paystate = #{paystate} where msoid = #{msoid} and userid = #{userid}
+    </update>
+
+    <!-- 根据msoid更新产品的发货状态 -->
+    <update id="sendPro" parameterType="String">
+        update mso set deliveryState = '已发货' where msoid = #{msoid}
+    </update>
+
+    <!-- 根据msoid删除订单mso -->
+    <delete id="deleteMsoByMsoid" parameterType="String">
+        delete from mso where msoid = #{msoid}
+    </delete>
+
+    <!-- 根据msoid删除订单msoxq -->
+    <delete id="deleteMsoxqByMsoid" parameterType="String">
+        delete from msoxq where msoid = #{msoid}
+    </delete>
+
+</mapper>

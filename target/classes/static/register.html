@@ -1,0 +1,91 @@
+<!--Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+<title>Online Login Form Responsive Widget Template :: w3layouts</title>
+	<!-- Meta tag Keywords -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Online Login Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Meta tag Keywords -->
+<!-- css files -->
+<link rel="stylesheet" href="css/regAndlogin_style.css" type="text/css" media="all" /> <!-- Style-CSS -->
+<link rel="stylesheet" href="css/font-awesome.css"> <!-- Font-Awesome-Icons-CSS -->
+<!-- //css files -->
+<!-- online-fonts -->
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
+<link href="//fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700,800&amp;subset=latin-ext" rel="stylesheet">
+<!-- //online-fonts -->
+</head>
+<body>
+
+<!-- main -->
+<div class="center-container" id="app">
+
+	<!--header-->
+	<div class="header-w3l">
+		<h1>Online Mishop</h1>
+	</div>
+	<!--//header-->
+
+	<!-- main -->
+	<div class="main-content-agile">
+		<div class="sub-main-w3">	
+			<div class="wthree-pro">
+				<h2>Create Yourself</h2>
+			</div>
+
+			<form id="registerFrom" method="post">
+				<div class="pom-agile">
+					<input placeholder="Username" name="username" id="username" @blur="isExist" v-model="register_user.username" class="user" type="text" required="">
+					<span class="icon1"><i class="fa fa-user" aria-hidden="true"></i></span>
+				</div>
+				<div class="pom-agile">
+					<input placeholder="Password" name="password" id="password" v-model="register_user.password" class="pass" type="password" required="">
+					<span class="icon2"><i class="fa fa-unlock" aria-hidden="true"></i></span>
+				</div>
+				<div class="pom-agile">
+					<input placeholder="Repassword" name="repassword" id="repassword" v-model="register_user.repassword" class="repassword" type="password" required="">
+					<span class="icon3"><i class="fa fa-thumb-tack" aria-hidden="true"></i></span>
+				</div>
+				<div class="pom-agile">
+					<input placeholder="Telephone" name="telephone" id="telephone" v-model="register_user.telephone" class="telephone" type="text" required="">
+					<span class="icon4"><i class="fa fa-user-md" aria-hidden="true"></i></span>
+				</div>
+				<div class="pom-agile">
+					<input placeholder="Real Name" name="name" id="yanzhengma" v-model="register_user.name" class="yanzhengma" type="text" required="">
+					<span class="icon5"><i class="fa fa-filter" aria-hidden="true"></i></span>
+				</div>
+				<div class="sub-w3l">
+					<h6><a href="login.html">Login right now！</a></h6>
+					<div class="right-w3l">
+						<input type="button" v-on:click="register" value="Register">
+					</div>
+				</div>
+			</form>
+
+		</div>
+	</div>
+	<!--//main-->
+
+	<!--footer-->
+	<div class="footer">
+		<p>&copy; 2017 Online Login Form. All rights reserved | Design by <a href="https://me.csdn.net/qq_43097201">Adams</a></p>
+	</div>
+	<!--//footer-->
+
+</div>
+
+<script src="http://code.jquery.com/jquery-1.4.1.min.js"></script>
+<script src="js/vuejs-2.5.16.js"></script>
+<script src="js/axios-0.18.0.js"></script>
+<script src="js/register.js"></script>
+
+</body>
+</html>

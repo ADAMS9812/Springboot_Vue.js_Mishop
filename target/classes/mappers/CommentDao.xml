@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ysw.dao.CommentDao">
+
+    <!-- 插入评论信息到数据库 -->
+    <insert id="addCommon" parameterType="com.ysw.entity.Comment">
+        insert into comment values(null,#{titles},#{proid},#{userid},#{username},#{fcontent},#{time})
+    </insert>
+
+    <!-- 根据id获取产品 -->
+    <select id="getCommentsByProid" resultType="com.ysw.entity.Comment" parameterType="String">
+        select * from comment where proid = #{proid}
+    </select>
+
+    <!-- 根据评论id查询评论信息 -->
+    <select id="getCommentFid" parameterType="Integer" resultType="com.ysw.entity.Comment">
+        select * from comment where fid = #{fid}
+    </select>
+
+</mapper>

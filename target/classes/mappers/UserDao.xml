@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ysw.dao.UserDao">
+
+    <!-- 登录方法 -->
+    <select id="login" parameterType="com.ysw.entity.User" resultType="com.ysw.entity.User">
+        select * from user where username = #{username} and password = #{password}
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="findAll"  parameterType="com.ysw.entity.User" resultType="com.ysw.entity.User">
+        select * from user
+    </select>
+
+    <!-- 获取总的用户数 -->
+    <select id="getAllUserCount" resultType="Integer">
+        select count(*) from user
+    </select>
+
+    <!-- 查询账号是否已经存在 -->
+    <select id="isExist" parameterType="String" resultType="com.ysw.entity.User">
+        select * from user where username = #{username}
+    </select>
+
+    <!-- 根据用户id查询用户并返回 -->
+    <select id="getUserById" parameterType="Integer" resultType="com.ysw.entity.User">
+        select * from user where id = #{userid}
+    </select>
+
+    <!-- 新增用户 -->
+    <insert id="register" parameterType="com.ysw.entity.User">
+        insert into user(username,password,telephone,regTime,name) values(#{username},#{password},#{telephone},#{regTime},#{name})
+    </insert>
+
+    <!-- 根据用户id进行更新的操作 -->
+    <update id="updateUserById" parameterType="com.ysw.entity.User">
+        update user
+        set name = #{name},password = #{password},telephone = #{telephone},address = #{address}
+        where id = #{id}
+    </update>
+
+    <!-- 更新用户资料 -->
+    <update id="updateUserByUsername" parameterType="com.ysw.entity.User">
+        update user
+        set name = #{name},password = #{password},
+                    gexing = #{gexing},hobby = #{hobby},address = #{address}
+        where username = #{username}
+    </update>
+
+    <!-- 根据用户id进行删除 -->
+    <delete id="deleteByUserid" parameterType="Integer">
+        delete from user where id = #{userid}
+    </delete>
+
+</mapper>

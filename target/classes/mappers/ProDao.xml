@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ysw.dao.ProDao">
+
+    <!-- 根据cid进行产品的分类 -->
+    <select id="findByCid" parameterType="Integer" resultType="com.ysw.entity.Pro">
+        select * from pro where cid = #{cid}
+    </select>
+
+    <!-- 根据cid查询产品总数 -->
+    <select id="getCountByCid" parameterType="Integer" resultType="Integer">
+        select count(*) from pro where cid = #{cid}
+    </select>
+
+    <!-- 根据id查询产品 -->
+    <select id="getProById" parameterType="Integer" resultType="com.ysw.entity.Pro">
+        select * from pro where id = #{id}
+    </select>
+
+    <!-- 根据产品名查询产品总个数 -->
+    <select id="getCountByName" parameterType="String" resultType="Integer">
+        select count(*) from pro where pName like #{pName}
+    </select>
+
+    <!-- 根据产品名进行模糊查询操作 -->
+    <select id="findProByName" parameterType="String" resultType="com.ysw.entity.Pro">
+        select * from pro where pName like #{pName}
+    </select>
+
+    <!-- 查询所有的产品 -->
+    <select id="findAll" resultType="com.ysw.entity.ProDetail">
+        SELECT pro.id,pName,pNum,iPrice,pImg,xqImg,cName
+        FROM pro LEFT OUTER JOIN cate
+        ON pro.cid = cate.id
+    </select>
+
+    <!-- 查询所有的cid类别 -->
+    <select id="getAllCid" resultType="com.ysw.entity.Cate">
+        select * from cate
+    </select>
+
+    <!-- 获取产品的总数 -->
+    <select id="getTotal" resultType="Integer">
+        SELECT count(*)
+        FROM pro LEFT OUTER JOIN cate
+        ON pro.cid = cate.id
+    </select>
+
+    <!-- 根据产品id删除pro表中的产品 -->
+    <delete id="deleteById" parameterType="Integer">
+        delete from pro where id = #{id}
+    </delete>
+
+    <!-- 根据产品id更新产品 -->
+    <update id="updateById" parameterType="com.ysw.entity.Pro">
+        update pro
+        set cid = #{cid},pName = #{pName},pNum = #{pNum},
+            iPrice = #{iPrice},pImg = #{pImg},xqImg = #{xqImg}
+        where id = #{id}
+    </update>
+
+    <insert id="addPro" parameterType="com.ysw.entity.Pro">
+        insert into pro(pName,pSn,pNum,mPrice,iPrice,pImg,pubTime,cid,xqImg)
+        values (#{pName},#{pSn},#{pNum},#{mPrice},#{iPrice},#{pImg},#{pubTime},#{cid},#{xqImg})
+    </insert>
+
+</mapper>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>小米商城 - 用户评论</title>
+
+    <link type="text/css" href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link type="text/css" href="css/md_css.css" rel="stylesheet">
+
+    <!-- markdown编辑器的引入 -->
+    <link rel="stylesheet" href="editor.md-master/css/editormd.min.css"/>
+    <link rel="stylesheet" href="editor.md-master/css/editormd.preview.min.css"/>
+
+    <style>
+
+        body {
+            background-attachment: fixed;
+            /*background-image: url("images/www2.jpg"); 背景图 */
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 100%;
+        }
+
+        input {
+            border-radius: 3px;
+            border: solid black 1px;
+        }
+
+    </style>
+</head>
+<body>
+
+<!--<%&#45;&#45;<font style="float: right;">Design By Adams.</font>&#45;&#45;%>-->
+<font style="font-size: 50px;float: right;margin-right: 10%;font-weight: bolder">
+    嘿！来个五星好评呀(●'◡'●)！
+</font>
+
+<div id="app">
+
+    <!--发帖 -->
+    <form action="comment/addComment" method="post" enctype="multipart/form-data">
+
+        <font style="color: black;margin-left: 9%;font-weight: bolder">评论标题：</font><input style="width: 20%;height: 5%" type="text" id="titles" name="titles"><br><br>
+
+        <!--  value="${sessionScope.user.userid}" -->
+        <font style="color: black;margin-left: 9%;font-weight: bolder">产品id号：</font>
+        <input style="width: 7%;height: 5%" type="text" id="proid" name="proid" v-model="pro.id" readonly="readonly">
+
+        <font style="color: black;margin-left: 2%;font-weight: bolder">用户名：</font>
+        <input type="text" style="width: 7%;height: 5%" id="username" name="username" v-model="user.name" readonly="readonly"><br><br>
+
+        <!-- markdown的文本框 -->
+        <div id="my-editormd" style="z-index: 2000;">
+            <textarea class="editormd-markdown-textarea" name="fcontent" id="fcontent"></textarea>
+        </div>
+
+        <center>
+            <button type="submit" class="btn btn-primary">发表评论</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-danger" href="#">返回</a>
+        </center>
+
+    </form>
+
+</div>
+
+<script src="js/jquery-3.3.1.min.js"></script>
+
+<script src="editor.md-master/lib/marked.min.js"></script>
+<script src="editor.md-master/lib/prettify.min.js"></script>
+<script src="editor.md-master/editormd.min.js"></script>
+
+<script type="text/javascript">
+
+    $(function() {
+        var myEditor = editormd("my-editormd", {
+            width   : "82%",
+            height  : 640,
+            syncScrolling : "single",
+            //你的lib目录的路径
+            path    : "editor.md-master/lib/",
+
+            /**上传图片相关配置如下*/
+            imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+
+            onload: function() {
+                // 引入插件 执行监听方法
+                editormd.loadPlugin("editor.md-master/plugins/image-handle-paste/image-handle-paste", function(){
+                    myEditor.imagePaste();
+                });
+            },
+
+            //这个配置，方便post提交表单
+            saveHTMLToTextarea : true,
+
+            emoji: true,//emoji表情，默认关闭
+            taskList: true,
+            tocm: true, // Using [TOCM]
+            tex: true,// 开启科学公式TeX语言支持，默认关闭
+
+            flowChart: true,//开启流程图支持，默认关闭
+            sequenceDiagram: true,//开启时序/序列图支持，默认关闭,
+
+            dialogLockScreen : false,//设置弹出层对话框不锁屏，全局通用，默认为true
+            dialogShowMask : false,//设置弹出层对话框显示透明遮罩层，全局通用，默认为true
+            dialogDraggable : false,//设置弹出层对话框不可拖动，全局通用，默认为true
+            dialogMaskOpacity : 0.4, //设置透明遮罩层的透明度，全局通用，默认值为0.1
+            dialogMaskBgColor : "#000",//设置透明遮罩层的背景颜色，全局通用，默认为#fff
+
+            onchange : function onchangeContent() {
+                if(this.htmlTextarea[0].defaultValue != ""){
+                    $("#issue-submit").removeAttr("disabled");
+                } else {
+                    layer.tips('文章内容不能为空!', '#my-editormd', {
+                        tips: [1, '#ff6620'] //还可配置颜色
+                    });
+                    $("#issue-submit").attr("disabled", "disabled");
+                }
+            }
+        });
+    });
+
+</script>
+
+<script src="js/images.js"></script>
+<script src="js/vuejs-2.5.16.js"></script>
+<script src="js/axios-0.18.0.js"></script>
+<script src="js/editArticle.js"></script>
+
+</body>
+</html>
