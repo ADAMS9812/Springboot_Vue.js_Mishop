@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 
 public class ProDetail implements Serializable {
-
+    //属性
     private Integer id;
     private String pName;
     private Integer pNum;
