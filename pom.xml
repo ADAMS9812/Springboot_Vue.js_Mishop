@@ -64,7 +64,7 @@
         </dependency>
 
         <!-- Mysql的驱动 -->
-        <!-- 分支冲突 -->
+        <!-- 分支冲突，这里远程仓库跟本地有冲突 -->
         <!-- 数据库驱动 -->
         <dependency>
             <groupId>mysql</groupId>
