@@ -64,7 +64,7 @@
         </dependency>
 
         <!-- Mysql的驱动 -->
-        <!-- 分支冲突，这里有冲突吗 -->
+        <!-- 分支冲突，是的，这里有冲突 -->
         <!-- 数据库驱动 -->
         <dependency>
             <groupId>mysql</groupId>
