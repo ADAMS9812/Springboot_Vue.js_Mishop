@@ -63,7 +63,7 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- 数据库驱动 -->
+        <!-- Mysql驱动 -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
