@@ -21,11 +21,11 @@ spring:
   redis:
     database: 0
     # 主机号
-    host: 121.43.124.158
+    host: 
     # 密码
-    password: 123456
+    password: 
     # 端口号
-    port: 6379
+    port: 
     # 什么时候超时
     timeout: 5000
     jedis:
