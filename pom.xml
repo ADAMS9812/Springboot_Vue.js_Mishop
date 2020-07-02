@@ -69,7 +69,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.28</version>
+            <version>8.0.16</version>
             <!--
                 scope中的runtime的含义：
                 例如，在编译的时候我们不需要 JDBC API 的 jar 包，而在运行的时候我们才需要 JDBC 驱动包。
